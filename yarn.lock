@@ -2798,6 +2798,11 @@ clone-deep@^4.0.1:
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
 
+clsx@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.0.tgz#62937c6adfea771247c34b54d320fb99624f5702"
+  integrity sha512-3avwM37fSK5oP6M5rQ9CNe99lwxhXDOeSWVPAOYF6OazUTgZCMb0yWlJpmdD74REy1gkEaFiub2ULv4fq9GUhA==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -6321,7 +6326,7 @@ jss-plugin-vendor-prefixer@10.1.1:
     css-vendor "^2.0.7"
     jss "10.1.1"
 
-jss-preset-default@10.1.1:
+jss-preset-default@10.1.1, jss-preset-default@^10.1.1:
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/jss-preset-default/-/jss-preset-default-10.1.1.tgz#71f3108398ed04e2bed598a7b3accb7cb3c9ddcd"
   integrity sha512-YwQp/BZ8IiBwxDTQ4uPAjzI2k2njrw6RJegAPvhCB1MTmWN2oR9Dhb5aN3RtepUf/agUkewTMwQqoS6PijgVMg==
@@ -6341,7 +6346,7 @@ jss-preset-default@10.1.1:
     jss-plugin-template "10.1.1"
     jss-plugin-vendor-prefixer "10.1.1"
 
-jss@10.1.1:
+jss@10.1.1, jss@^10.1.1:
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/jss/-/jss-10.1.1.tgz#450b27d53761af3e500b43130a54cdbe157ea332"
   integrity sha512-Xz3qgRUFlxbWk1czCZibUJqhVPObrZHxY3FPsjCXhDld4NOj1BgM14Ir5hVm+Qr6OLqVljjGvoMcCdXNOAbdkQ==
