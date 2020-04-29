@@ -1,8 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { Delivery } from '../../Resources/Icons'
 import clsx from 'clsx'
+
 const useStyles = createUseStyles({
   delivery: {
     display: 'flex',
@@ -64,8 +66,10 @@ const useStyles = createUseStyles({
   }
 })
 
-const ResumenCart = ({ shippingDay, summary, shippingCost, taxes, total }) => {
+const ResumenCart = ({ summary, shippingCost, taxes, total }) => {
+  const shippingDay = '05/02/2020'
   const classes = useStyles()
+  const history = useHistory()
  return (
    <div>
      <div className={classes.delivery}>
@@ -77,22 +81,22 @@ const ResumenCart = ({ shippingDay, summary, shippingCost, taxes, total }) => {
      <div className={classes.containerResumen}>
        <div className={classes.columResumen}>
         <p className={classes.textResumen}>Products</p>
-         <p className={classes.textResumen}>$ {summary.toFixed(2)}</p>
+         <p className={classes.textResumen}>$ {Number(summary).toFixed(2)}</p>
        </div>
        <div className={clsx([classes.columResumen], 'yellow')}>
          <p className={clsx([classes.textResumen], 'bold')}>Shipping Cost</p>
-         <p className={clsx([classes.textResumen], 'bold')}>$ {shippingCost.toFixed(2)}</p>
+         <p className={clsx([classes.textResumen], 'bold')}>$ {Number(shippingCost).toFixed(2)}</p>
        </div>
        <div className={classes.columResumen}>
          <p className={classes.textResumen}>Taxes</p>
-         <p className={classes.textResumen}>$ {taxes.toFixed(2)}</p>
+         <p className={classes.textResumen}>$ {Number(taxes).toFixed(2)}</p>
        </div>
        <div className={clsx([classes.columResumen], 'total')}>
          <p className={clsx([classes.textResumen], 'bold')}>Total</p>
-         <p className={clsx([classes.textResumen], 'bold', 'red')}>$ {total.toFixed(2)}</p>
+         <p className={clsx([classes.textResumen], 'bold', 'red')}>$ {Number(total).toFixed(2)}</p>
        </div>  
      </div>
-     <button disabled={total < 50} className={clsx([classes.btnCompleteOrder], total > 50 && 'actived')}>
+     <button onClick={() => history.push('/thanks')} disabled={Number(total) < 50} className={clsx([classes.btnCompleteOrder], Number(total) > 50 && 'actived')}>
       Complete order
      </button>
    </div>
@@ -100,7 +104,6 @@ const ResumenCart = ({ shippingDay, summary, shippingCost, taxes, total }) => {
 }
 
 ResumenCart.propTypes = {
-  shippingDay: PropTypes.string.isRequired,
   summary: PropTypes.number.isRequired,
   shippingCost: PropTypes.number.isRequired,
   taxes: PropTypes.number.isRequired,

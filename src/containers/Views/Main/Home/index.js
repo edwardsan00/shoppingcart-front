@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
+import { useQuery } from '@apollo/react-hooks'
+
 
 import SearchAndResult from '../../../../components/Home/SearchAndResult'
 import ResumenCart from '../../../../components/Home/ResumenCart'
+import { GET_CUSTOMER_BY_ID } from '../../../../schemas/query/Common'
+
 
 const useStyles = createUseStyles({
   containerHome: {
@@ -36,13 +40,45 @@ const useStyles = createUseStyles({
 
 const Home = () => {
   const classes = useStyles()
+  const [ paramsResumenCart, setParamsResumenCart ] = useState({
+    shippingCost: 0,
+    summary: 0,
+    taxes: 0,
+    total:0
+  }) 
+  const customerId = localStorage.getItem('customerId')
+  const { loading, data: { getCustumerById = {} } = {} } = useQuery(GET_CUSTOMER_BY_ID, { variables: { id: customerId } })
+  const { productsInCart = [] } = getCustumerById
+  console.log("===> Edward <===: Home -> getCustumerById", getCustumerById)
+  console.log("===> Edward <===: Home -> productsInCart", productsInCart)
+
+  useEffect(() => {
+    if (!loading && productsInCart.length){
+      const TAX = 18
+      const SHIPPING = 10
+      const total =  productsInCart.map(({ total }) => total).reduce((acc, curr) => acc.total + curr.total)
+      console.log("===> Edward <===: Home -> totsdaawdal", total)
+      if(total){
+        const taxes = total * TAX / 100
+        const shippingCost = total * SHIPPING / 100
+        const summary = total - taxes - shippingCost
+        setParamsResumenCart({
+          shippingCost,
+          summary,
+          taxes,
+          total
+        })
+      }
+    }
+  }, [loading, productsInCart])
+
   return (
     <div className={classes.containerHome}>
       <div className={classes.homeLeft}>
-        <SearchAndResult />
+        <SearchAndResult productsInCart={productsInCart} />
       </div>
       <div className={classes.homeRight}>
-        <ResumenCart shippingCost={200} summary={120} taxes={14} total={200} shippingDay={'05/02/2020'} />
+        <ResumenCart {...paramsResumenCart}  />
       </div>
     </div>
   )

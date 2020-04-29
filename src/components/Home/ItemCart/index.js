@@ -71,7 +71,9 @@ const useStyles = createUseStyles({
     fontWeight: 600,
     fontSize: '14px',
     width: '30px',
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundColor: '#FF8000',
+    border: 'none'
   },
   btnDelete: {
     marginTop: '10px',
@@ -96,7 +98,15 @@ const useStyles = createUseStyles({
   }
 })
 
-const ItemCart = ({ name, price, image, inCart = false }) => {
+const ItemCart = ({ 
+  id,
+  name,
+  price,
+  image,
+  inCart = false,
+  onHandleDeleteItem = () => false,
+  onHandleAddItem = () => false 
+}) => {
   const classes = useStyles()
   return (
     <div className={classes.containerItem}>
@@ -112,15 +122,15 @@ const ItemCart = ({ name, price, image, inCart = false }) => {
           {inCart ? (
             <>
             <button className={classes.actionQuantity}>+</button>
-            <p className={classes.quantity}>1</p>
+            <button className={classes.quantity}>1</button>
             <button className={classes.actionQuantity}>-</button>
             </>
           ): (
-              <p className={classes.quantity}>+</p>
+            <button onClick={() => onHandleAddItem({ productId: id, quantity: 1, total: price })} className={classes.quantity}>+</button>
           )}
         </div>
         {inCart && (
-          <button className={classes.btnDelete}>Eliminar</button>
+          <button onClick={() => onHandleDeleteItem(id)} className={classes.btnDelete}>Eliminar</button>
         )}
       </div>
     </div>
@@ -128,6 +138,9 @@ const ItemCart = ({ name, price, image, inCart = false }) => {
 }
 
 ItemCart.propTypes = {
+  onHandleDeleteItem: PropTypes.func,
+  onHandleAddItem: PropTypes.func,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
